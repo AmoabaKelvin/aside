@@ -40,7 +40,19 @@ Aside finds the CLIs in the usual install locations (Homebrew, `~/.local/bin`, n
 
 ## Install
 
-There's no prebuilt release yet, so build it from source. You need [Rust](https://rustup.rs), Node 20+ and [pnpm](https://pnpm.io).
+Download `Aside-<version>-arm64.zip` from the [latest release](https://github.com/AmoabaKelvin/aside/releases/latest), unzip it and move `Aside.app` to `/Applications`. Builds are for Apple Silicon only.
+
+The app is signed but not notarized, so the first time you open it macOS says it can't verify the developer. Right-click `Aside.app` and choose **Open**, or allow it under System Settings → Privacy & Security. You can also clear the quarantine flag yourself:
+
+```sh
+xattr -dr com.apple.quarantine /Applications/Aside.app
+```
+
+Aside lives in the menu bar. The default shortcut is **⌘⇧Space**. You can change it in Settings, for example to ⌥Space.
+
+### Build from source
+
+You need [Rust](https://rustup.rs), Node 20+ and [pnpm](https://pnpm.io).
 
 ```sh
 git clone https://github.com/AmoabaKelvin/aside.git
@@ -48,10 +60,7 @@ cd aside
 pnpm install
 pnpm app:build
 cp -R src-tauri/target/release/bundle/macos/Aside.app /Applications/
-open /Applications/Aside.app
 ```
-
-Aside lives in the menu bar. The default shortcut is **⌘⇧Space**. You can change it in Settings, for example to ⌥Space.
 
 To sign the build with your own certificate, set `APPLE_SIGNING_IDENTITY` before running `pnpm app:build`.
 
